@@ -2,3 +2,38 @@
   padding: 0;
   margin: 0;
 }
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#books-wrapper {
+  display: grid;
+  /* height: 60vh; */
+  /* the height is not permanent, just for show right now. */
+  width: 35vw;
+  border: 1px solid black;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.books {
+  display: flex;
+  background-color: red;
+  flex-direction: column;
+}
+
+.book-title {
+  font-size: 2rem;
+}
+
+.book-content {
+  flex: 1;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
