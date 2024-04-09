@@ -43,6 +43,16 @@ function displayBooks() {
     const readBtn = document.createElement("button");
     readBtn.className = "read-btn";
     readBtn.textContent = "Read?";
+    readBtn.onclick = function () {
+      if (
+        myLibrary[Number(readBtn.parentElement.parentElement.id)].read == true
+      ) {
+        myLibrary[Number(readBtn.parentElement.parentElement.id)].read = false;
+      } else {
+        myLibrary[Number(readBtn.parentElement.parentElement.id)].read = true;
+      }
+      displayBooks();
+    };
 
     booksInfoSection.append(
       authorText,
@@ -86,21 +96,3 @@ form.addEventListener("submit", (event) => {
   displayBooks();
   event.preventDefault(); // just stops it refreshing everytime.
 });
-
-// const removeBtn = document.querySelectorAll("button.remove-btn");
-// removeBtn.forEach((button) => {
-//   button.addEventListener("click", (event) => {
-//     const mainBox = button.parentElement.parentElement;
-//     objectIndex = mainBox.id;
-//     myLibrary.splice(objectIndex, 1);
-//     displayBooks();
-//     // only problem here is I can only remove only after adding a new element, need to fix that bug by
-//   });
-// });
-
-// function removeBook(element) {
-//   const elementBookIndex = element.parentElement.parentElement.id;
-//   elementBookIndex = Number(elementBookIndex);
-//   myLibrary.splice(elementBookIndex, 1);
-//   displayBooks();
-// }
