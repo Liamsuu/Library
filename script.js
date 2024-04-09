@@ -41,22 +41,34 @@ function displayBooks() {
   }
 }
 
-const testerBook = new Book("John Anon", "Test title", 432, true);
+// const testerBook = new Book("John Anon", "Test title", 432, true);
 const new_book_btn = document.querySelector("#add-book-btn");
-addBookToLibrary(testerBook);
-displayBooks();
+// addBookToLibrary(testerBook);
+// displayBooks();
 
-new_book_btn.addEventListener("click", () => {
-  const bookNumber = myLibrary.length();
+new_book_btn.addEventListener("click", (event) => {
+  const bookNumber = myLibrary.length;
   const bookTitle = document.querySelector("input#title");
+  const bookTitleValue = bookTitle.value;
   const bookAuthor = document.querySelector("input#author");
+  const bookAuthorValue = bookAuthor.value;
   const bookPages = document.querySelector("input#pages");
+  const bookPagesValue = bookPages.value;
   const bookRead = document.querySelector("input#read");
+  const bookReadValue = bookRead.value;
   // here just get the inputs value and plug it into the object constructor below.
 
-  if (bookNumber === 0) {
-    window["book" + bookNumber] = new Book(); // complete soon
-  } // if i forget this is because i need a 'dynamic variable' to hold object
+  const bookInstance = new Book(
+    bookAuthorValue,
+    bookTitleValue,
+    bookPagesValue,
+    bookReadValue,
+    bookNumber
+  );
+  addBookToLibrary(bookInstance);
+  console.log(myLibrary);
+  displayBooks();
+  event.preventDefault(); // just stops it refreshing everytime.
 });
 
 // create event listener for button where it first delets everything in DOM when clicked
