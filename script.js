@@ -52,7 +52,7 @@ new_book_btn.addEventListener("click", (event) => {
   const bookPages = document.querySelector("input#pages");
   const bookPagesValue = bookPages.value;
   const bookRead = document.querySelector("input#read");
-  const bookReadValue = bookRead.value;
+  const bookReadValue = bookRead.checked;
   // here just get the inputs value and plug it into the object constructor below.
 
   const bookInstance = new Book(
