@@ -35,6 +35,10 @@ function displayBooks() {
     const removeBtn = document.createElement("button");
     removeBtn.className = "remove-btn";
     removeBtn.textContent = "Remove";
+    removeBtn.onclick = function () {
+      myLibrary.splice(Number(removeBtn.parentElement.parentElement.id), 1);
+      displayBooks();
+    };
 
     const readBtn = document.createElement("button");
     readBtn.className = "read-btn";
@@ -61,9 +65,10 @@ function displayBooks() {
 }
 
 // const testerBook = new Book("John Anon", "Test title", 432, true);
-const new_book_btn = document.querySelector("#add-book-btn");
+// const new_book_btn = document.querySelector("#add-book-btn");
+const form = document.querySelector("form");
 
-new_book_btn.addEventListener("click", (event) => {
+form.addEventListener("submit", (event) => {
   const bookTitleValue = document.querySelector("input#title").value;
   const bookAuthorValue = document.querySelector("input#author").value;
   const bookPagesValue = document.querySelector("input#pages").value;
@@ -80,16 +85,22 @@ new_book_btn.addEventListener("click", (event) => {
   console.log(myLibrary);
   displayBooks();
   event.preventDefault(); // just stops it refreshing everytime.
-
-  const removeBtn = document.querySelectorAll("button.remove-btn");
-  removeBtn.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      const mainBox = button.parentElement.parentElement;
-      objectIndex = mainBox.id;
-      myLibrary.splice(objectIndex, 1);
-      displayBooks();
-
-      // only problem here is I can only remove only after adding a new element, need to fix that bug by
-    });
-  });
 });
+
+// const removeBtn = document.querySelectorAll("button.remove-btn");
+// removeBtn.forEach((button) => {
+//   button.addEventListener("click", (event) => {
+//     const mainBox = button.parentElement.parentElement;
+//     objectIndex = mainBox.id;
+//     myLibrary.splice(objectIndex, 1);
+//     displayBooks();
+//     // only problem here is I can only remove only after adding a new element, need to fix that bug by
+//   });
+// });
+
+// function removeBook(element) {
+//   const elementBookIndex = element.parentElement.parentElement.id;
+//   elementBookIndex = Number(elementBookIndex);
+//   myLibrary.splice(elementBookIndex, 1);
+//   displayBooks();
+// }
