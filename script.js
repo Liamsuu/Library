@@ -77,13 +77,14 @@ new_book_btn.addEventListener("click", (event) => {
     .forEach((item) => {
       item.addEventListener("click", (event) => {
         const bookContainer = item.parentElement.parentElement;
-        const bookId = bookContainer.id;
+        let bookNumId = bookContainer.id;
+
+        delete myLibrary[Number(bookNumId)];
+
         while (bookContainer.firstChild) {
           bookContainer.removeChild(bookContainer.firstChild);
         }
         bookContainer.remove();
-
-        // i want to remove the element thats displaying the book and also the actual element from the array.
       });
     });
 });
