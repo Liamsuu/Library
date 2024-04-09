@@ -17,17 +17,29 @@ function displayBooks() {
     booksWrapper.removeChild(booksWrapper.firstChild);
   }
   myLibrary.forEach((objectInstance) => {
-    const booksBox = (document.createElement("div").className = "books");
+    const booksBox = document.createElement("div");
+    booksBox.className = "books";
     booksBox.setAttribute("id", myLibrary.indexOf(objectInstance).toString());
-    const bookTitle = (document.createElement("h3").className = "book-title");
-    const booksInfoSection = (document.createElement("div").className =
-      "book-content");
+
+    const bookTitle = document.createElement("h3");
+    bookTitle.className = "book-title";
+    bookTitle.textContent = objectInstance.title;
+
+    const booksInfoSection = document.createElement("div");
+    booksInfoSection.className = "book-content";
+
     const authorText = document.createElement("p");
     const pagesText = document.createElement("p");
     const readText = document.createElement("p");
-    const removeBtn = (document.createElement("button").className =
-      "remove-btn");
-    const readBtn = (document.createElement("button").className = "read-btn");
+
+    const removeBtn = document.createElement("button");
+    removeBtn.className = "remove-btn";
+    removeBtn.textContent = "Remove";
+
+    const readBtn = document.createElement("button");
+    readBtn.className = "read-btn";
+    readBtn.textContent = "Read?";
+
     booksInfoSection.append(
       authorText,
       pagesText,
@@ -43,6 +55,8 @@ function displayBooks() {
     } else {
       readText.textContent = `Read: No`;
     }
+    booksBox.append(bookTitle, booksInfoSection);
+    booksWrapper.appendChild(booksBox);
   });
 }
 
@@ -66,4 +80,16 @@ new_book_btn.addEventListener("click", (event) => {
   console.log(myLibrary);
   displayBooks();
   event.preventDefault(); // just stops it refreshing everytime.
+
+  const removeBtn = document.querySelectorAll("button.remove-btn");
+  removeBtn.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const mainBox = button.parentElement.parentElement;
+      objectIndex = mainBox.id;
+      myLibrary.splice(objectIndex, 1);
+      displayBooks();
+
+      // only problem here is I can only remove only after adding a new element, need to fix that bug by
+    });
+  });
 });
