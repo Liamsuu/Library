@@ -5,86 +5,65 @@ function Book(author, title, pages, read, bookId) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.bookId = bookId.toString();
 }
+const booksWrapper = document.querySelector("#books-wrapper");
 
 function addBookToLibrary(bookObject) {
   myLibrary.push(bookObject);
 }
 
 function displayBooks() {
-  const object = myLibrary[myLibrary.length - 1];
-  const book_wrapper = document.querySelector("#books-wrapper");
-  const book_div = document.createElement("div");
-  book_div.className = "books";
-  book_div.id = object.bookId;
-  book_wrapper.appendChild(book_div);
-  const title = document.createElement("h3");
-  title.className = "book-title";
-  title.textContent = object.title;
-  book_div.appendChild(title);
-  const book_content = document.createElement("div");
-  book_content.className = "book-content"; // append content like author, etc.. inside here.
-  book_div.appendChild(book_content);
-  const author = document.createElement("p");
-  const pages = document.createElement("p");
-  const read = document.createElement("p");
-  const removeBtn = document.createElement("button");
-  removeBtn.textContent = "Remove";
-  removeBtn.className = "remove-btn";
-  author.textContent = `Author: ${object.author}`;
-  pages.textContent = `Pages: ${object.pages}`;
-  if (object.read === true) {
-    read.textContent = `Read: Yes`;
-  } else if (object.read === false) {
-    read.textContent = `Read: No`;
+  while (booksWrapper.firstChild) {
+    booksWrapper.removeChild(booksWrapper.firstChild);
   }
-  book_content.appendChild(author);
-  book_content.appendChild(pages);
-  book_content.appendChild(read);
-  book_content.appendChild(removeBtn);
+  myLibrary.forEach((objectInstance) => {
+    const booksBox = (document.createElement("div").className = "books");
+    booksBox.setAttribute("id", myLibrary.indexOf(objectInstance).toString());
+    const bookTitle = (document.createElement("h3").className = "book-title");
+    const booksInfoSection = (document.createElement("div").className =
+      "book-content");
+    const authorText = document.createElement("p");
+    const pagesText = document.createElement("p");
+    const readText = document.createElement("p");
+    const removeBtn = (document.createElement("button").className =
+      "remove-btn");
+    const readBtn = (document.createElement("button").className = "read-btn");
+    booksInfoSection.append(
+      authorText,
+      pagesText,
+      readText,
+      removeBtn,
+      readBtn
+    );
+
+    authorText.textContent = `Author: ${objectInstance.author}`;
+    pagesText.textContent = `Pages: ${objectInstance.pages}`;
+    if (objectInstance.read === true) {
+      readText.textContent = `Read: Yes`;
+    } else {
+      readText.textContent = `Read: No`;
+    }
+  });
 }
 
 // const testerBook = new Book("John Anon", "Test title", 432, true);
 const new_book_btn = document.querySelector("#add-book-btn");
 
 new_book_btn.addEventListener("click", (event) => {
-  const bookNumber = myLibrary.length;
-  const bookTitle = document.querySelector("input#title");
-  const bookTitleValue = bookTitle.value;
-  const bookAuthor = document.querySelector("input#author");
-  const bookAuthorValue = bookAuthor.value;
-  const bookPages = document.querySelector("input#pages");
-  const bookPagesValue = bookPages.value;
-  const bookRead = document.querySelector("input#read");
-  const bookReadValue = bookRead.checked;
+  const bookTitleValue = document.querySelector("input#title").value;
+  const bookAuthorValue = document.querySelector("input#author").value;
+  const bookPagesValue = document.querySelector("input#pages").value;
+  const bookReadValue = document.querySelector("input#read").checked;
   // here just get the inputs value and plug it into the object constructor below.
 
   const bookInstance = new Book(
     bookAuthorValue,
     bookTitleValue,
     bookPagesValue,
-    bookReadValue,
-    bookNumber
+    bookReadValue
   );
   addBookToLibrary(bookInstance);
   console.log(myLibrary);
   displayBooks();
   event.preventDefault(); // just stops it refreshing everytime.
-
-  const removeBtn = document
-    .querySelectorAll("button.remove-btn")
-    .forEach((item) => {
-      item.addEventListener("click", (event) => {
-        const bookContainer = item.parentElement.parentElement;
-        let bookNumId = bookContainer.id;
-
-        delete myLibrary[Number(bookNumId)];
-
-        while (bookContainer.firstChild) {
-          bookContainer.removeChild(bookContainer.firstChild);
-        }
-        bookContainer.remove();
-      });
-    });
 });
