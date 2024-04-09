@@ -5,7 +5,7 @@ function Book(author, title, pages, read, bookId) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.bookId = bookId;
+  this.bookId = bookId.toString();
 }
 
 function addBookToLibrary(bookObject) {
@@ -17,6 +17,7 @@ function displayBooks() {
   const book_wrapper = document.querySelector("#books-wrapper");
   const book_div = document.createElement("div");
   book_div.className = "books";
+  book_div.id = object.bookId;
   book_wrapper.appendChild(book_div);
   const title = document.createElement("h3");
   title.className = "book-title";
@@ -28,6 +29,9 @@ function displayBooks() {
   const author = document.createElement("p");
   const pages = document.createElement("p");
   const read = document.createElement("p");
+  const removeBtn = document.createElement("button");
+  removeBtn.textContent = "Remove";
+  removeBtn.className = "remove-btn";
   author.textContent = `Author: ${object.author}`;
   pages.textContent = `Pages: ${object.pages}`;
   if (object.read === true) {
@@ -38,6 +42,7 @@ function displayBooks() {
   book_content.appendChild(author);
   book_content.appendChild(pages);
   book_content.appendChild(read);
+  book_content.appendChild(removeBtn);
 }
 
 // const testerBook = new Book("John Anon", "Test title", 432, true);
@@ -66,4 +71,19 @@ new_book_btn.addEventListener("click", (event) => {
   console.log(myLibrary);
   displayBooks();
   event.preventDefault(); // just stops it refreshing everytime.
+
+  const removeBtn = document
+    .querySelectorAll("button.remove-btn")
+    .forEach((item) => {
+      item.addEventListener("click", (event) => {
+        const bookContainer = item.parentElement.parentElement;
+        const bookId = bookContainer.id;
+        while (bookContainer.firstChild) {
+          bookContainer.removeChild(bookContainer.firstChild);
+        }
+        bookContainer.remove();
+
+        // i want to remove the element thats displaying the book and also the actual element from the array.
+      });
+    });
 });
