@@ -42,8 +42,6 @@ function displayBooks() {
 
 // const testerBook = new Book("John Anon", "Test title", 432, true);
 const new_book_btn = document.querySelector("#add-book-btn");
-// addBookToLibrary(testerBook);
-// displayBooks();
 
 new_book_btn.addEventListener("click", (event) => {
   const bookNumber = myLibrary.length;
@@ -69,10 +67,3 @@ new_book_btn.addEventListener("click", (event) => {
   displayBooks();
   event.preventDefault(); // just stops it refreshing everytime.
 });
-
-// create event listener for button where it first delets everything in DOM when clicked
-// then adds whatever book to array and then again display the updated array with the new book
-
-// const book_wrapper = document.querySelector("#books-wrapper");
-
-// TO FIX DUPLICATE BUG, JUST DISPLAY THE RESULT ON THE END. SO JUST FIND THE LENGTH OF ARRAY - 1.
