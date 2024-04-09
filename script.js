@@ -1,10 +1,11 @@
 const myLibrary = [];
 
-function Book(author, title, pages, read) {
+function Book(author, title, pages, read, bookId) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
+  this.bookId = bookId;
 }
 
 function addBookToLibrary(bookObject) {
@@ -41,9 +42,22 @@ function displayBooks() {
 }
 
 const testerBook = new Book("John Anon", "Test title", 432, true);
-
+const new_book_btn = document.querySelector("#add-book-btn");
 addBookToLibrary(testerBook);
 displayBooks();
+
+new_book_btn.addEventListener("click", () => {
+  const bookNumber = myLibrary.length();
+  const bookTitle = document.querySelector("input#title");
+  const bookAuthor = document.querySelector("input#author");
+  const bookPages = document.querySelector("input#pages");
+  const bookRead = document.querySelector("input#read");
+  // here just get the inputs value and plug it into the object constructor below.
+
+  if (bookNumber === 0) {
+    window["book" + bookNumber] = new Book(); // complete soon
+  } // if i forget this is because i need a 'dynamic variable' to hold object
+});
 
 // create event listener for button where it first delets everything in DOM when clicked
 // then adds whatever book to array and then again display the updated array with the new book
